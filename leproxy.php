@@ -29,6 +29,13 @@ if (PHP_VERSION_ID < 50400 || PHP_SAPI !== 'cli') {
 // this line will be replaced with the static const in the release file.
 define('VERSION', ltrim(exec('git describe --always --dirty 2>/dev/null || echo unknown'), 'v'));
 
+function includeIfExists($file)
+{
+    if (file_exists($file)) {
+        return include $file;
+    }
+}
+
 if (!includeIfExists(__DIR__.'/../vendor/autoload.php') && !includeIfExists(__DIR__.'/../../../autoload.php')) {
     $msg = 'You must set up the project dependencies, run the following commands:'.PHP_EOL.
            'curl -sS https://getcomposer.org/installer | php'.PHP_EOL.
